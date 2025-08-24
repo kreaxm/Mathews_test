@@ -1,0 +1,38 @@
+<table mat-table [dataSource]="suppliers" class="mat-elevation-z8" *ngIf="suppliers && suppliers.length > 0">
+
+
+  <!-- Supplier Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Supplier Name </th>
+    <td mat-cell *matCellDef="let supplier"> {{ supplier.name }} </td>
+  </ng-container>
+
+  <!-- Contact Column -->
+  <ng-container matColumnDef="contact">
+    <th mat-header-cell *matHeaderCellDef> Contact </th>
+    <td mat-cell *matCellDef="let supplier"> {{ supplier.phone }} </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let supplier"> {{ supplier.email }} </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let supplier">
+      <button mat-button color="warn" (click)="deleteSupplier(supplier._id)">Delete</button>
+    </td>
+  </ng-container>
+
+  <!-- Header and Row Declarations -->
+  <tr mat-header-row *matHeaderRowDef="['name', 'contact', 'email', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['name', 'contact', 'email', 'actions'];"></tr>
+</table>
+
+<!-- Optional: Message if no suppliers -->
+<div *ngIf="suppliers?.length === 0" class="no-data">
+  No suppliers found.
+</div>

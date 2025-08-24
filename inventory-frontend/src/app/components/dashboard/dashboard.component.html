@@ -1,0 +1,75 @@
+<div class="dashboard-container">
+
+  <!-- Toolbar -->
+  <mat-toolbar color="primary">
+    <span>Inventory Dashboard</span>
+  </mat-toolbar>
+
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <mat-card class="summary-card">
+      <mat-card-title>Total Products</mat-card-title>
+      <mat-card-content>
+        <h2>{{ products.length }}</h2>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-title>Total Inventory Value</mat-card-title>
+      <mat-card-content>
+        <h2>{{ getInventoryValue() | currency }}</h2>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-title>Low Stock Items</mat-card-title>
+      <mat-card-content>
+        <h2>{{ getLowStockItems().length }}</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Top Selling Products Section -->
+<div class="top-selling-section" *ngIf="topSellingProducts.length > 0">
+  <h3>Top Selling Products</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let product of topSellingProducts">
+      {{ product.productName }} - {{ product.totalSold }} units sold
+    </mat-list-item>
+  </mat-list>
+</div>
+
+<!-- Popular Categories Section -->
+<div class="popular-categories-section" *ngIf="popularCategories.length > 0">
+  <h3>Most Popular Categories</h3>
+  <mat-list>
+    <mat-list-item *ngFor="let category of popularCategories">
+      {{ category._id }} - {{ category.totalSold }} sales
+    </mat-list-item>
+  </mat-list>
+</div>
+
+  <!-- Low Stock Alerts -->
+  <div class="low-stock-section" *ngIf="getLowStockItems().length > 0">
+    <h3>Low Stock Alerts</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let item of getLowStockItems()">
+        {{ item.name }} - Only {{ item.stockQuantity }} left (Reorder at {{ item.reorderLevel }})
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <!-- Export Buttons -->
+  <div class="export-buttons">
+    <button mat-raised-button color="primary" routerLink="/add-product">
+      Add Product
+    </button>
+    <button mat-raised-button color="primary" (click)="exportAll()">
+      Export All Inventory
+    </button>
+    <button mat-raised-button color="warn" (click)="exportLowStock()">
+      Export Low Stock
+    </button>
+  </div>
+
+</div>

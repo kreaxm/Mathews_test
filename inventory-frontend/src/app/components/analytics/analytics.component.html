@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">Product Analytics</mat-toolbar>
+
+<div class="analytics-container">
+
+  <mat-card class="analytics-card">
+    <mat-card-title>Total Inventory Value</mat-card-title>
+    <mat-card-content>
+      <h2>{{ totalInventoryValue | currency }}</h2>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="analytics-card" *ngIf="bestProduct">
+    <mat-card-title>Best Performing Product</mat-card-title>
+    <mat-card-content>
+      <p><strong>{{ bestProduct.productName }}</strong></p>
+      <p>Category: {{ bestProduct.category || 'N/A' }}</p>
+      <p>SKU: {{ bestProduct.sku || 'N/A' }}</p>
+      <p>Price: {{ bestProduct.price | currency }}</p>
+      <p>Stock Quantity: {{ bestProduct.stockQuantity }}</p>
+      <p>Reorder Level: {{ bestProduct.reorderLevel }}</p>
+      <p>Description: {{ bestProduct.description || 'N/A' }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="analytics-card" *ngIf="slowMovingProducts.length > 0">
+    <mat-card-title>Slow Moving Products</mat-card-title>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let p of slowMovingProducts">
+          <strong>{{ p.productName }}</strong> — {{ p.stockQuantity }} in stock (Reorder Level: {{ p.reorderLevel }}) 
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="analytics-card" *ngIf="slowMovingProducts.length === 0">
+    <mat-card-content>
+      <p>No slow moving products.</p>
+    </mat-card-content>
+  </mat-card>
+
+</div>
